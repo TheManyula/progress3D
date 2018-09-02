@@ -1,0 +1,60 @@
+# progress3D.inc
+
+[![sampctl](https://shields.southcla.ws/badge/sampctl-progress3D-2f2f2f.svg?style=for-the-badge)](https://github.com/TheManyula/progress3D)
+
+A SA-MP library for creating progress bars in 3D space.
+This library was written and is maintained by Manyula.
+
+## Installation
+
+Simply install to your project:
+
+```bash
+sampctl package install TheManyula/progress3D
+```
+
+Include in your code and begin using the library:
+
+```pawn
+#include <progress3D>
+```
+
+## Usage
+
+### Functions
+
+* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`:
+  * Creates a 3D progress bar.
+* `DestroyProgressBar3D(Bar3D:barid)`:
+  * Destroys a 3D progress bar.
+* `GetProgressBar3DValue(Bar3D:barid)`:
+  * Returns the current progress value.
+* `SetProgressBar3DValue(Bar3D:barid, Float:value)`:
+  * Updates the value of the specified 3D progress bar.
+* `GetProgressBar3DFillColor(Bar3D:barid)`:
+  * Returns the fill color of the specified 3D progress bar.
+* `SetProgressBar3DFillColor(Bar3D:barid, fill_color)`:
+  * Updates the fill color of the specified 3D progress bar.
+* `GetProgressBar3DBackgroundColor(Bar3D:barid)`:
+  * Returns the background color of the specified 3D progress bar.
+* `SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)`:
+  * Updates the background color of the specified 3D progress bar.
+* `IsValidProgressBar3D(Bar3D:barid)`:
+  * Returns true, if the specified 3D progress bar ID is valid and exists.
+
+## Testing
+
+To test, simply run the package using
+
+```bash
+sampctl package run
+```
+
+and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
+
+
+### Commands
+* `/bar` to create a 3D progress bar.
+* `/value <number>` to change the value of the 3D progress bar. 
+* `/changefill` to change the fill color randomly.
+* `/changebackground` to change the background color randomly. 
