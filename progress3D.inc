@@ -42,7 +42,6 @@ static UpdateProgress(barid, fill_color, background_color, Float:value) {
 
     new bcolor[16];
     format(bcolor, sizeof(bcolor), "{%06x}", (background_color - 1) >>> 8);
-
     bar1_idx = bar2_idx = floatround(value / 4, floatround_round);
     strins(bar1, bcolor, bar1_idx);
     strins(bar2, bcolor, bar2_idx + 1);
@@ -58,8 +57,8 @@ stock Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, 
         return INVALID_3D_BAR;
     }
     
-    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("IIIIIIIIIIIIIIIIIIIIIIIII", fill_color-1, x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
-    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel(" IIIIIIIIIIIIIIIIIIIIIIIII", fill_color-1, x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
+    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("IIIIIIIIIIIIIIIIIIIIIIIII", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
+    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel(" IIIIIIIIIIIIIIIIIIIIIIIII", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
 
     UpdateProgress(barid, fill_color, background_color, init_value);
 
@@ -80,10 +79,10 @@ stock DestroyProgressBar3D(Bar3D:barid) {
     Bars3D[_:barid][backgroundColor] = 0;
     Bars3D[_:barid][barValue] = 0;
 
-    Iter_Remove(Bars3D_Index, _:barid);
-
     DestroyDynamic3DTextLabel(Bars3D[_:barid][Bar1]);
     DestroyDynamic3DTextLabel(Bars3D[_:barid][Bar2]);
+
+    Iter_Remove(Bars3D_Index, _:barid);
     return 1;
 }
 
@@ -117,7 +116,7 @@ stock SetProgressBar3DFillColor(Bar3D:barid, fill_color) {
     }
 
     UpdateProgress(_:barid, fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][barValue]);
-    Bars3D[_:barid][fillColor] = fill_color-1;
+    Bars3D[_:barid][fillColor] = (fill_color - 1);
     return 1;
 }
 
@@ -134,7 +133,7 @@ stock SetProgressBar3DBackgroundColor(Bar3D:barid, background_color) {
     }
 
     UpdateProgress(_:barid, Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][barValue]);
-    Bars3D[_:barid][backgroundColor] = background_color-1;
+    Bars3D[_:barid][backgroundColor] = (background_color - 1);
     return 1;
 }
 
