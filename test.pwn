@@ -4,7 +4,7 @@
 
 #include "progress3D"
 
-new Colors[8] = {
+static const Colors[8] = {
     0x000000FF,
     0x0000FFFF,
     0x00FF00FF,
@@ -22,7 +22,7 @@ main() {
 }
 
 public OnGameModeInit() {
-    SetGameModeText("progress3D Test");
+    SetGameModeText("progress3D");
     AddPlayerClass(0, 1958.3783, 1343.1572, 15.3746, 269.1425, 0, 0, 0, 0, 0, 0);
     return 1;
 }
@@ -67,13 +67,11 @@ CMD:value(playerid, params[]) {
 }
 
 CMD:changefill(playerid, params[]) {
-    new r = random(sizeof(Colors));
-    SetProgressBar3DFillColor(Bar, Colors[r]);
+    SetProgressBar3DFillColor(Bar, Colors[random(sizeof(Colors))]);
     return 1;
 }
 
 CMD:changebackground(playerid, params[]) {
-    new r = random(sizeof(Colors));
-    SetProgressBar3DBackgroundColor(Bar, Colors[r]);
+    SetProgressBar3DBackgroundColor(Bar, Colors[random(sizeof(Colors))]);
     return 1;
 }
