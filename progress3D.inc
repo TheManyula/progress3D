@@ -44,12 +44,8 @@ static UpdateProgress(barid, fill_color, background_color, Float:value) {
     format(bcolor, sizeof(bcolor), "{%06x}", (background_color - 1) >>> 8);
 
     bar1_idx = bar2_idx = floatround(value / 4, floatround_round);
-    strins(bar1, bcolor, bar1_idx, 36);
-    printf("bar1: %s", bar1);
-    printf("bar2: %s", bar2);
-    strins(bar2, bcolor, bar2_idx + 1, 36);
-    printf("bar1: %s", bar1);
-    printf("bar2: %s", bar2);
+    strins(bar1, bcolor, bar1_idx);
+    strins(bar2, bcolor, bar2_idx + 1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], (fill_color - 1), bar1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar2], (fill_color - 1), bar2);
     return 1;
