@@ -23,24 +23,29 @@ Include in your code and begin using the library:
 
 ### Functions
 
-* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`:
+* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
   * Creates a 3D progress bar.
-* `DestroyProgressBar3D(Bar3D:barid)`:
+* `DestroyProgressBar3D(Bar3D:barid)`
   * Destroys a 3D progress bar.
-* `GetProgressBar3DValue(Bar3D:barid)`:
+* `GetProgressBar3DValue(Bar3D:barid)`
   * Returns the current progress value.
-* `SetProgressBar3DValue(Bar3D:barid, Float:value)`:
+* `SetProgressBar3DValue(Bar3D:barid, Float:value)`
   * Updates the value of the specified 3D progress bar.
-* `GetProgressBar3DFillColor(Bar3D:barid)`:
+* `GetProgressBar3DFillColor(Bar3D:barid)`
   * Returns the fill color of the specified 3D progress bar.
-* `SetProgressBar3DFillColor(Bar3D:barid, fill_color)`:
+* `SetProgressBar3DFillColor(Bar3D:barid, fill_color)`
   * Updates the fill color of the specified 3D progress bar.
-* `GetProgressBar3DBackgroundColor(Bar3D:barid)`:
+* `GetProgressBar3DBackgroundColor(Bar3D:barid)`
   * Returns the background color of the specified 3D progress bar.
-* `SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)`:
+* `SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)`
   * Updates the background color of the specified 3D progress bar.
-* `IsValidProgressBar3D(Bar3D:barid)`:
+* `IsValidProgressBar3D(Bar3D:barid)`
   * Returns true, if the specified 3D progress bar ID is valid and exists.
+
+### Internal
+
+* `UpdateProgress(barid, fill_color, background_color, Float:value)`
+  * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the progress value, fill color or background color are updated.
 
 ## Testing
 
@@ -51,7 +56,6 @@ sampctl package run
 ```
 
 and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
-
 
 ### Commands
 * `/bar` to create a 3D progress bar.
