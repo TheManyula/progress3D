@@ -23,7 +23,7 @@ Include in your code and begin using the library:
 
 ### Functions
 
-* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
+* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:max_value, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
   * Creates a 3D progress bar.
 * `DestroyProgressBar3D(Bar3D:barid)`
   * Destroys a 3D progress bar.
@@ -39,13 +39,17 @@ Include in your code and begin using the library:
   * Returns the background color of the specified 3D progress bar.
 * `SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)`
   * Updates the background color of the specified 3D progress bar.
+* `GetProgressBar3DMaxValue(Bar3D:barid)`
+  * Returns the maximum value of the specified 3D progress bar.
+* `SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value)`
+  * Updates the maximum value of the specified 3D progress bar.
 * `IsValidProgressBar3D(Bar3D:barid)`
   * Returns true, if the specified 3D progress bar ID is valid and exists.
 
 ### Internal
 
-* `UpdateProgress(barid, fill_color, background_color, Float:value)`
-  * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the progress value, fill color or background color are updated.
+* `UpdateProgress(barid, fill_color, background_color, Float:max_value, Float:value)`
+  * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the progress value, maximum value, fill color or background color are updated.
 
 ## Testing
 
