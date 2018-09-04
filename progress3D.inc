@@ -17,6 +17,7 @@
 enum BAR_3D_DATA {
     fillColor,
     backgroundColor,
+    Float:maxValue,
     Float:barValue,
     Text3D:Bar1, 
     Text3D:Bar2 
@@ -25,13 +26,7 @@ enum BAR_3D_DATA {
 static Bar3D:Bars3D[MAX_3D_BARS][BAR_3D_DATA];
 new Iterator:Bars3D_Index<MAX_3D_BARS>;
 
-static UpdateProgress(barid, fill_color, background_color, Float:value) {
-    if(value > 100.0) {
-        value = 100.0;
-    } else if(value < 0) {
-        value = 0.0;
-    }
-    
+static UpdateProgress(barid, fill_color, background_color, Float:max, Float:value) {
     new bar1[36],
         bar2[36],
         bar1_idx,
@@ -42,7 +37,7 @@ static UpdateProgress(barid, fill_color, background_color, Float:value) {
 
     new bcolor[16];
     format(bcolor, sizeof(bcolor), "{%06x}", (background_color - 1) >>> 8);
-    bar1_idx = bar2_idx = floatround(value / 4, floatround_round);
+    bar1_idx = bar2_idx = floatround(value / (max / 25), floatround_round);
     strins(bar1, bcolor, bar1_idx);
     strins(bar2, bcolor, bar2_idx + 1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], (fill_color - 1), bar1);
@@ -50,7 +45,7 @@ static UpdateProgress(barid, fill_color, background_color, Float:value) {
     return 1;
 }
 
-stock Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1) {
+stock Bar3D:CreateProgressBar3D(fill_color, background_color, Float:max_value, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1) {
     new barid = Iter_Free(Bars3D_Index);
 
     if(barid == ITER_NONE) {
@@ -60,10 +55,11 @@ stock Bar3D:CreateProgressBar3D(fill_color, background_color, Float:init_value, 
     Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("IIIIIIIIIIIIIIIIIIIIIIIII", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
     Bars3D[barid][Bar2] = CreateDynamic3DTextLabel(" IIIIIIIIIIIIIIIIIIIIIIIII", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
 
-    UpdateProgress(barid, fill_color, background_color, init_value);
+    UpdateProgress(barid, fill_color, background_color, max_value, init_value);
 
     Bars3D[barid][fillColor] = fill_color;
     Bars3D[barid][backgroundColor] = background_color;
+    Bars3D[barid][maxValue] = max_value;
     Bars3D[barid][barValue] = init_value;
 
     Iter_Add(Bars3D_Index, barid);
@@ -98,7 +94,7 @@ stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
         return 0;
     }
 
-    UpdateProgress(_:barid, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], value);
+    UpdateProgress(_:barid, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], value);
     Bars3D[_:barid][barValue] = value;
     return 1;
 }
@@ -115,7 +111,7 @@ stock SetProgressBar3DFillColor(Bar3D:barid, fill_color) {
         return 0;
     }
 
-    UpdateProgress(_:barid, fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][barValue]);
+    UpdateProgress(_:barid, fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][fillColor] = (fill_color - 1);
     return 1;
 }
@@ -132,8 +128,25 @@ stock SetProgressBar3DBackgroundColor(Bar3D:barid, background_color) {
         return 0;
     }
 
-    UpdateProgress(_:barid, Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][barValue]);
+    UpdateProgress(_:barid, Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][backgroundColor] = (background_color - 1);
+    return 1;
+}
+
+stock GetProgressBar3DMaxValue(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return 0;
+    }
+    return Bars3D[_:barid][maxValue];
+}
+
+stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
+    if(!IsValidProgressBar3D(barid)) {
+        return 0;
+    }
+
+    UpdateProgress(_:barid, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], max_value, Bars3D[_:barid][barValue]);
+    Bars3D[_:barid][maxValue] = max_value;
     return 1;
 }
 
