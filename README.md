@@ -21,9 +21,22 @@ Include in your code and begin using the library:
 
 ## Usage
 
+### Constants
+
+* `MAX_3D_BARS`
+  * Defaults to the 3D text label limit divided by 2.
+* `INVALID_3D_BAR`
+  * Return value for an invalid or non-existent 3D progress bar.
+* `BAR_3D_LAYOUT_THIN`
+  * Thin progress bar (made up of I's)
+* `BAR_3D_LAYOUT_NORMAL`
+  * Standard thickness progress bar (made up of /'s)
+* `BAR_3D_LAYOUT_THICK`
+  * Slightly thicker progress bar (made up of .'s)
+
 ### Functions
 
-* `Bar3D:CreateProgressBar3D(fill_color, background_color, Float:max_value, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
+* `Bar3D:CreateProgressBar3D(layout, fill_color, background_color, Float:max_value, Float:init_value, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
   * Creates a 3D progress bar.
 * `DestroyProgressBar3D(Bar3D:barid)`
   * Destroys a 3D progress bar.
@@ -43,13 +56,17 @@ Include in your code and begin using the library:
   * Returns the maximum value of the specified 3D progress bar.
 * `SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value)`
   * Updates the maximum value of the specified 3D progress bar.
+* `GetProgressBar3DLayout(Bar3D:barid)`
+  * Returns the layout of the specified 3D progress bar.
+* `SetProgressBar3DLayout(Bar3D:barid, layout)`
+  * Updates the layout of the specified 3D progress bar.
 * `IsValidProgressBar3D(Bar3D:barid)`
   * Returns true, if the specified 3D progress bar ID is valid and exists.
 
 ### Internal
 
-* `UpdateProgress(barid, fill_color, background_color, Float:max_value, Float:value)`
-  * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the progress value, maximum value, fill color or background color are updated.
+* `UpdateProgress(barid, layout, fill_color, background_color, Float:max_value, Float:value)`
+  * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the layout, progress value, maximum value, fill color or background color are updated.
 
 ## Testing
 
@@ -63,6 +80,8 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 * `/bar` to create a 3D progress bar.
-* `/value <number>` to change the value of the 3D progress bar. 
-* `/changefill` to change the fill color randomly.
-* `/changebackground` to change the background color randomly. 
+* `/layout` to change the layout.
+* `/value <number>` to change the value.
+* `/max <number>` to change the maximum value. 
+* `/fill` to change the fill color randomly.
+* `/background` to change the background color randomly. 
