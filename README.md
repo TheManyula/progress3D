@@ -28,11 +28,11 @@ Include in your code and begin using the library:
 * `INVALID_3D_BAR`
   * Return value for an invalid or non-existent 3D progress bar.
 * `BAR_3D_LAYOUT_THIN`
-  * Thin progress bar (made up of I's)
+  * Thin progress bar.
 * `BAR_3D_LAYOUT_NORMAL`
-  * Standard thickness progress bar (made up of /'s)
+  * Standard thickness progress bar.
 * `BAR_3D_LAYOUT_THICK`
-  * Slightly thicker progress bar (made up of .'s)
+  * Slightly thicker progress bar.
 
 ### Functions
 
