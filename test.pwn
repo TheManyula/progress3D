@@ -4,6 +4,9 @@
 
 #include "progress3D"
 
+#define FILL_COLOR          0xFF0000FF
+#define BACKGROUND_COLOR    0xFFFFFFFF
+
 static const Colors[8] = {
     0x000000FF,
     0x0000FFFF,
@@ -53,20 +56,13 @@ CMD:bar(playerid, params[]) {
 
     new Float:pos[3];
     GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-    Bar = CreateProgressBar3D(BAR_3D_LAYOUT_NORMAL, 0xFF0000FF, 0xFFFFFFFF, 100.0, 50.0, pos[0], pos[1], pos[2], 100.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, STREAMER_3D_TEXT_LABEL_SD, -1);
+    Bar = CreateProgressBar3D(pos[0], pos[1], pos[2], BAR_3D_LAYOUT_NORMAL, FILL_COLOR, BACKGROUND_COLOR, 100.0, 50.0, 100.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1, -1, STREAMER_3D_TEXT_LABEL_SD, -1);
     return 1;
 }
 
 CMD:layout(playerid, params[]) {
     new layout = GetProgressBar3DLayout(Bar);
-
-    if(layout < 2) {
-        layout++;
-    } else {
-        layout = 0;
-    }
-
-    SetProgressBar3DLayout(Bar, layout);
+    SetProgressBar3DLayout(Bar, (layout < BAR_3D_LAYOUT_THICK) ? (layout + 1) : (layout = BAR_3D_LAYOUT_THIN));
     return 1;
 }
 
