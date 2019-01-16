@@ -29,34 +29,31 @@ enum BAR_3D_DATA {
 }
 
 static Bar3D:Bars3D[MAX_3D_BARS][BAR_3D_DATA],
-       Iterator:Bars3D_Index<MAX_3D_BARS>,
-       bar1[35],
-       bar2[35];
+       Iterator:Bars3D_Index<MAX_3D_BARS>;
 
 static UpdateProgress(barid, layout, fill_color, background_color, Float:max, Float:value) {    
     new bar1_idx,
         bar2_idx,
-        bcolor[13];
+        bar1[35],
+        bar2[35],
+        barColor[13];
     
     switch(layout) {
-        case BAR_3D_LAYOUT_THIN: {
+        case BAR_3D_LAYOUT_THIN:
             bar1 = "'''''''''''''''''''''''''",
             bar2 = " '''''''''''''''''''''''''";
-        }
-        case BAR_3D_LAYOUT_NORMAL: {
+        case BAR_3D_LAYOUT_THICK:
+            bar1 = "|||||||||||||||||||||||||",
+            bar2 = " |||||||||||||||||||||||||";
+        default:
             bar1 = "IIIIIIIIIIIIIIIIIIIIIIIII",
             bar2 = " IIIIIIIIIIIIIIIIIIIIIIIII";
-        }
-        case BAR_3D_LAYOUT_THICK: {
-            bar1 = "|||||||||||||||||||||||||";
-            bar2 = " |||||||||||||||||||||||||";
-        }
     }
 
-    format(bcolor, sizeof(bcolor), "{%06x}", (background_color - 1) >>> 8);
+    format(barColor, sizeof(barColor), "{%06x}", (background_color - 1) >>> 8);
     bar1_idx = bar2_idx = floatround(value / (max / 25), floatround_round);
-    strins(bar1, bcolor, bar1_idx);
-    strins(bar2, bcolor, bar2_idx + 1);
+    strins(bar1, barColor, bar1_idx);
+    strins(bar2, barColor, bar2_idx + 1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], (fill_color - 1), bar1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar2], (fill_color - 1), bar2);
     return 1;
@@ -68,9 +65,8 @@ stock Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, b
     if(barid == ITER_NONE)
         return INVALID_3D_BAR;
     
-    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
-    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
-
+    Bars3D[barid][Bar1] = Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
+    
     UpdateProgress(barid, layout, fill_color, background_color, max_value, init_value);
 
     Bars3D[barid][barLayout] = layout;

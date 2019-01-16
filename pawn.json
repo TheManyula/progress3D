@@ -10,6 +10,12 @@
 		"maddinat0r/sscanf",
 		"Southclaws/zcmd"
 	],
+	"builds": [
+		{
+			"name": "main",
+			"version": "3.10.8"
+		}
+	],
 	"runtime": {
 		"version": "0.3.7",
 		"mode": "server",
