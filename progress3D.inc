@@ -10,6 +10,7 @@
 #include <a_samp>
 #include <streamer>
 #include <YSI_Data\y_iterate>
+#include <YSI_Coding\y_hooks>
 
 #define MAX_3D_BARS             512
 #define INVALID_3D_BAR          Bar3D:-1
@@ -42,12 +43,12 @@ static UpdateProgress(barid, layout, fill_color, background_color, Float:max, Fl
         case BAR_3D_LAYOUT_THIN:
             bar1 = "'''''''''''''''''''''''''",
             bar2 = " '''''''''''''''''''''''''";
+        case BAR_3D_LAYOUT_NORMAL:
+            bar1 = "IIIIIIIIIIIIIIIIIIIIIIIII",
+            bar2 = " IIIIIIIIIIIIIIIIIIIIIIIII";
         case BAR_3D_LAYOUT_THICK:
             bar1 = "|||||||||||||||||||||||||",
             bar2 = " |||||||||||||||||||||||||";
-        default:
-            bar1 = "IIIIIIIIIIIIIIIIIIIIIIIII",
-            bar2 = " IIIIIIIIIIIIIIIIIIIIIIIII";
     }
 
     format(barColor, sizeof(barColor), "{%06x}", (background_color - 1) >>> 8);
@@ -59,14 +60,15 @@ static UpdateProgress(barid, layout, fill_color, background_color, Float:max, Fl
     return 1;
 }
 
-stock Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, background_color, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1) {
+stock Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, background_color, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1, priority = 0) {
     new barid = Iter_Free(Bars3D_Index);
 
     if(barid == ITER_NONE)
         return INVALID_3D_BAR;
     
-    Bars3D[barid][Bar1] = Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid);
-    
+    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
+    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
+
     UpdateProgress(barid, layout, fill_color, background_color, max_value, init_value);
 
     Bars3D[barid][barLayout] = layout;
@@ -169,11 +171,25 @@ stock SetProgressBar3DLayout(Bar3D:barid, layout) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    UpdateProgress(_:barid, layout, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][barLayout] = layout;
     return 1;
 }
 
 stock IsValidProgressBar3D(Bar3D:barid) {
 	return Iter_Contains(Bars3D_Index, _:barid);
+}
+
+hook OnGameModeInit() {
+    print("                                          ____  _____  ");
+    print("                                         |___ \\|  __ \\ ");
+    print("  _ __  _ __ ___   __ _ _ __ ___  ___ ___  __) | |  | |");
+    print(" | '_ \\| '__/ _ \\ / _` | '__/ _ \\/ __/ __||__ <| |  | |");
+    print(" | |_) | | | (_) | (_| | | |  __/\\__ \\__ \\___) | |__| |");
+    print(" | .__/|_|  \\___/ \\__, |_|  \\___||___/___/____/|_____/ ");
+    print(" | |               __/ |                               ");
+    print(" |_|              |___/                                ");
+    print(" ");
+    print("(c) by Manyula");
+    return 1;
 }
