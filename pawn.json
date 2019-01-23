@@ -6,14 +6,14 @@
 	"dependencies": [
 		"sampctl/samp-stdlib",
 		"samp-incognito/samp-streamer-plugin:v2.9.3",
-		"pawn-lang/YSI-Includes:v4.0.2",
+		"pawn-lang/YSI-Includes@5.x",
 		"maddinat0r/sscanf",
 		"Southclaws/zcmd"
 	],
 	"builds": [
 		{
 			"name": "main",
-			"version": "3.10.8"
+			"version": "3.10.9"
 		}
 	],
 	"runtime": {
