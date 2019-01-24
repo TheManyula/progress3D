@@ -36,7 +36,7 @@ Include in your code and begin using the library:
 
 ### Functions
 
-* `Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, background_color, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1)`
+* `Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, background_color, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, STREAMER_TAG_AREA areaid = STREAMER_TAG_AREA -1, priority = 0)`
   * Creates a 3D progress bar.
 * `DestroyProgressBar3D(Bar3D:barid)`
   * Destroys a 3D progress bar.
