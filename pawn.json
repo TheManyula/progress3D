@@ -5,7 +5,7 @@
 	"output": "test.amx",
 	"dependencies": [
 		"sampctl/samp-stdlib",
-		"samp-incognito/samp-streamer-plugin:v2.9.3",
+		"samp-incognito/samp-streamer-plugin:v2.9.4",
 		"pawn-lang/YSI-Includes@5.x",
 		"maddinat0r/sscanf",
 		"Southclaws/zcmd"
