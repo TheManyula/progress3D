@@ -65,7 +65,7 @@ Include in your code and begin using the library:
 
 ### Internal
 
-* `UpdateProgress(barid, layout, fill_color, background_color, Float:max_value, Float:value)`
+* `_UpdateProgress3D(barid, layout, fill_color, background_color, Float:max_value, Float:value)`
   * Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the layout, progress value, maximum value, fill color or background color are updated.
 
 ## Testing

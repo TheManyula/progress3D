@@ -32,7 +32,7 @@ enum BAR_3D_DATA {
 static Bar3D:Bars3D[MAX_3D_BARS][BAR_3D_DATA],
        Iterator:Bars3D_Index<MAX_3D_BARS>;
 
-static UpdateProgress(barid, layout, fill_color, background_color, Float:max, Float:value) {    
+static _UpdateProgress3D(barid, layout, fill_color, background_color, Float:max, Float:value) {    
     new bar1_idx,
         bar2_idx,
         bar1[35],
@@ -69,7 +69,7 @@ stock Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, b
     Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
     Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
 
-    UpdateProgress(barid, layout, fill_color, background_color, max_value, init_value);
+    _UpdateProgress3D(barid, layout, fill_color, background_color, max_value, init_value);
 
     Bars3D[barid][barLayout] = layout;
     Bars3D[barid][fillColor] = fill_color;
@@ -107,7 +107,7 @@ stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], value);
+    _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], value);
     Bars3D[_:barid][barValue] = value;
     return 1;
 }
@@ -123,7 +123,7 @@ stock SetProgressBar3DFillColor(Bar3D:barid, fill_color) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, Bars3D[_:barid][barLayout], fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][fillColor] = (fill_color - 1);
     return 1;
 }
@@ -139,7 +139,7 @@ stock SetProgressBar3DBackgroundColor(Bar3D:barid, background_color) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][backgroundColor] = (background_color - 1);
     return 1;
 }
@@ -155,7 +155,7 @@ stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], max_value, Bars3D[_:barid][barValue]);
+    _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], max_value, Bars3D[_:barid][barValue]);
     Bars3D[_:barid][maxValue] = max_value;
     return 1;
 }
@@ -171,7 +171,7 @@ stock SetProgressBar3DLayout(Bar3D:barid, layout) {
     if(!IsValidProgressBar3D(barid))
         return 0;
 
-    UpdateProgress(_:barid, layout, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    _UpdateProgress3D(_:barid, layout, Bars3D[_:barid][fillColor], Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][barLayout] = layout;
     return 1;
 }
