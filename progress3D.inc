@@ -57,7 +57,6 @@ static _UpdateProgress3D(barid, layout, fill_color, background_color, Float:max,
     bar1_idx = bar2_idx = floatround(value / (max / 25), floatround_round);
     strins(bar1, barColor, bar1_idx);
     strins(bar2, barColor, bar2_idx + 1);
-
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], SetAlpha(fill_color), bar1);
     UpdateDynamic3DTextLabelText(Bars3D[barid][Bar2], SetAlpha(fill_color), bar2);
     return 1;
