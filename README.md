@@ -2,6 +2,8 @@
 
 A SA-MP library for creating progress bars in 3D space. This library was written and is maintained by Manyula.
 
+![3D progress bar](https://www2.pic-upload.de/thumb/35895015/progress3D.png)
+
 ## Installation
 
 Simply install to your project:
