@@ -80,7 +80,8 @@ SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)
 
 Updates the background color of the specified 3D progress bar.
 
-```pawnGetProgressBar3DMaxValue(Bar3D:barid)
+```pawn
+GetProgressBar3DMaxValue(Bar3D:barid)
 ```
 
 Returns the maximum value of the specified 3D progress bar.
