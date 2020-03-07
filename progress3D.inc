@@ -12,6 +12,8 @@
 #include <YSI_Data\y_iterate>
 #include <YSI_Coding\y_hooks>
 
+#define SetAlpha(%0) (%0 & 0xFFFFFFFE)
+
 #define MAX_3D_BARS             512
 #define INVALID_3D_BAR          Bar3D:-1
 
@@ -55,8 +57,9 @@ static _UpdateProgress3D(barid, layout, fill_color, background_color, Float:max,
     bar1_idx = bar2_idx = floatround(value / (max / 25), floatround_round);
     strins(bar1, barColor, bar1_idx);
     strins(bar2, barColor, bar2_idx + 1);
-    UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], (fill_color - 1), bar1);
-    UpdateDynamic3DTextLabelText(Bars3D[barid][Bar2], (fill_color - 1), bar2);
+
+    UpdateDynamic3DTextLabelText(Bars3D[barid][Bar1], SetAlpha(fill_color), bar1);
+    UpdateDynamic3DTextLabelText(Bars3D[barid][Bar2], SetAlpha(fill_color), bar2);
     return 1;
 }
 
@@ -65,9 +68,9 @@ stock Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, b
 
     if(barid == ITER_NONE)
         return INVALID_3D_BAR;
-    
-    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
-    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", (fill_color - 1), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
+
+    Bars3D[barid][Bar1] = CreateDynamic3DTextLabel("Loading...", SetAlpha(fill_color), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
+    Bars3D[barid][Bar2] = CreateDynamic3DTextLabel("Loading...", SetAlpha(fill_color), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
 
     _UpdateProgress3D(barid, layout, fill_color, background_color, max_value, init_value);
 
@@ -124,7 +127,7 @@ stock SetProgressBar3DFillColor(Bar3D:barid, fill_color) {
         return 0;
 
     _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], fill_color, Bars3D[_:barid][backgroundColor], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
-    Bars3D[_:barid][fillColor] = (fill_color - 1);
+    Bars3D[_:barid][fillColor] = SetAlpha(fill_color);
     return 1;
 }
 
