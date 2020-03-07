@@ -179,17 +179,3 @@ stock SetProgressBar3DLayout(Bar3D:barid, layout) {
 stock IsValidProgressBar3D(Bar3D:barid) {
 	return Iter_Contains(Bars3D_Index, _:barid);
 }
-
-hook OnGameModeInit() {
-    print("                                          ____  _____  ");
-    print("                                         |___ \\|  __ \\ ");
-    print("  _ __  _ __ ___   __ _ _ __ ___  ___ ___  __) | |  | |");
-    print(" | '_ \\| '__/ _ \\ / _` | '__/ _ \\/ __/ __||__ <| |  | |");
-    print(" | |_) | | | (_) | (_| | | |  __/\\__ \\__ \\___) | |__| |");
-    print(" | .__/|_|  \\___/ \\__, |_|  \\___||___/___/____/|_____/ ");
-    print(" | |               __/ |                               ");
-    print(" |_|              |___/                                ");
-    print(" ");
-    print("(c) by Manyula");
-    return 1;
-}
