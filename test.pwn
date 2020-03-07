@@ -45,11 +45,11 @@ public OnPlayerSpawn(playerid) {
     SendClientMessage(playerid, 0xFFFFFFFF, "============================== COMMANDS ==============================");
     SendClientMessage(playerid, 0xFF0000FF, "/bar {FFFFFF}to create a 3D progress bar.");
     SendClientMessage(playerid, 0xFF0000FF, " => Please be aware that the 3D progress bar will only become visible, if you move after the creation!");
-    SendClientMessage(playerid, 0xFF0000FF, "/layout {FFFFFF}to change the layout.");
-    SendClientMessage(playerid, 0xFF0000FF, "/value <number> {FFFFFF}to change the value.");
+    SendClientMessage(playerid, 0xFF0000FF, "/l {FFFFFF}to change the layout.");
+    SendClientMessage(playerid, 0xFF0000FF, "/v <number> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <number> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/fill {FFFFFF}to change the fill color randomly.");
-    SendClientMessage(playerid, 0xFF0000FF, "/background {FFFFFF}to change the background color randomly.");
+    SendClientMessage(playerid, 0xFF0000FF, "/bg {FFFFFF}to change the background color randomly.");
     return 1;
 }
 
@@ -67,13 +67,13 @@ CMD:bar(playerid, params[]) {
     return 1;
 }
 
-CMD:layout(playerid, params[]) {
+CMD:l(playerid, params[]) {
     new layout = GetProgressBar3DLayout(Bar);
     SetProgressBar3DLayout(Bar, (layout < BAR_3D_LAYOUT_THICK) ? (layout + 1) : (BAR_3D_LAYOUT_THIN));
     return 1;
 }
 
-CMD:value(playerid, params[]) {
+CMD:v(playerid, params[]) {
     new Float:value;
 
     if(sscanf(params, "f", value))
@@ -98,7 +98,7 @@ CMD:fill(playerid, params[]) {
     return 1;
 }
 
-CMD:background(playerid, params[]) {
+CMD:bg(playerid, params[]) {
     SetProgressBar3DBackgroundColor(Bar, Colors[random(sizeof(Colors))]);
     return 1;
 }
