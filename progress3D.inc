@@ -51,7 +51,7 @@ static _UpdateProgress3D(barid, layout, fill_color, background_color, Float:max,
             bar2 = " |||||||||||||||||||||||||";
     }
 
-    format(barColor, sizeof(barColor), "{%06x}", (background_color - 1) >>> 8);
+    format(barColor, sizeof(barColor), "{%06x}", background_color >>> 8);
     bar1_idx = bar2_idx = floatround(value / (max / 25), floatround_round);
     strins(bar1, barColor, bar1_idx);
     strins(bar2, barColor, bar2_idx + 1);
@@ -140,7 +140,7 @@ stock SetProgressBar3DBackgroundColor(Bar3D:barid, background_color) {
         return 0;
 
     _UpdateProgress3D(_:barid, Bars3D[_:barid][barLayout], Bars3D[_:barid][fillColor], background_color, Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
-    Bars3D[_:barid][backgroundColor] = (background_color - 1);
+    Bars3D[_:barid][backgroundColor] = background_color >>> 8;
     return 1;
 }
 
