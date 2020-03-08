@@ -12,15 +12,15 @@
 #include <YSI_Data\y_iterate>
 #include <YSI_Coding\y_hooks>
 
-#define SetAlpha(%0)            (%0 & 0xFFFFFFFE)
-#define Darken(%0)              (%0 & 0x80808000)
+#define SetAlpha(%0)         (%0 & 0xFFFFFFFE)
+#define Darken(%0)           (%0 & 0x80808000)
 
-#define MAX_3D_BARS             512
-#define INVALID_3D_BAR          Bar3D:-1
+#define MAX_3D_BARS          512
+#define INVALID_3D_BAR       Bar3D:-1
 
-#define BAR_3D_LAYOUT_THIN      0
-#define BAR_3D_LAYOUT_NORMAL    1
-#define BAR_3D_LAYOUT_THICK     2
+#define BAR_3D_LAYOUT_THIN   0
+#define BAR_3D_LAYOUT_NORMAL 1
+#define BAR_3D_LAYOUT_THICK  2
 
 enum BAR_3D_DATA {
     barLayout,
