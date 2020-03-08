@@ -22,13 +22,13 @@ Include in your code and begin using the library:
 
 ### Constants
 
-| Constant             | Description                                                                                              |
-| :------------------- | :------------------------------------------------------------------------------------------------------- |
-| MAX_3D_BARS          | Total amount of 3D progress bars that can be created.\nDefaults to the 3D text label limit divided by 2. |
-| INVALID_3D_BAR       | Return value for an invalid or non-existent 3D progress bar.                                             |
-| BAR_3D_LAYOUT_THIN   | Layout option for a thin 3D progress bar.                                                                |
-| BAR_3D_LAYOUT_NORMAL | Layout option for a standard (medium thickness) 3D progress bar.                                         |
-| BAR_3D_LAYOUT_THICK  | Layout option for a thick 3D progress bar.                                                               |
+| Constant             | Description                                                                                             |
+| :------------------- | :------------------------------------------------------------------------------------------------------ |
+| MAX_3D_BARS          | Total amount of 3D progress bars that can be created. Defaults to the 3D text label limit divided by 2. |
+| INVALID_3D_BAR       | Return value for an invalid or non-existent 3D progress bar.                                            |
+| BAR_3D_LAYOUT_THIN   | Layout option for a thin 3D progress bar.                                                               |
+| BAR_3D_LAYOUT_NORMAL | Layout option for a standard (medium thickness) 3D progress bar.                                        |
+| BAR_3D_LAYOUT_THICK  | Layout option for a thick 3D progress bar.                                                              |
 
 ### Functions
 
