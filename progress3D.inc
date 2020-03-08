@@ -82,6 +82,16 @@ stock Bar3D:CreateProgressBar3D(color, layout, Float:x, Float:y, Float:z, Float:
     return Bar3D:barid;
 }
 
+stock HideProgressBar3D(Bar3D:barid) {
+    _UpdateProgress3D(_:barid, 0x00000000, Bars3D[_:barid][barLayout], Bars3D[_:barid][maxValue], Bars3D[_:barid][maxValue]);
+    return 1;
+}
+
+stock ShowProgressBar3D(Bar3D:barid) {
+    _UpdateProgress3D(_:barid, Bars3D[_:barid][barColor], Bars3D[_:barid][barLayout], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    return 1;
+}
+
 stock DestroyProgressBar3D(Bar3D:barid) {
     if(!IsValidProgressBar3D(barid)) {
         return 0;
