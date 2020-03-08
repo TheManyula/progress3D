@@ -4,8 +4,6 @@
 
 #include "progress3D"
 
-#define COLOR 0xFF0000FF
-
 static const Colors[8] = {
     0x0000FFFF,
     0x00FF00FF,
@@ -38,18 +36,15 @@ public OnPlayerRequestClass(playerid, classid) {
 }
 
 public OnPlayerSpawn(playerid) {
-    SendClientMessage(playerid, 0xFFFFFFFF, " ");
-    SendClientMessage(playerid, 0xFFFFFFFF, " ");
-    SendClientMessage(playerid, 0xFFFFFFFF, "============================== COMMANDS ==============================");
-    SendClientMessage(playerid, 0xFF0000FF, "/b {FFFFFF}to create a 3D progress bar. (only visible, if you move after the creation)");
-    SendClientMessage(playerid, 0xFF0000FF, "/l {FFFFFF}to change the layout.");
-    SendClientMessage(playerid, 0xFF0000FF, "/v <number> {FFFFFF}to change the value.");
-    SendClientMessage(playerid, 0xFF0000FF, "/m <number> {FFFFFF}to change the maximum value.");
-    SendClientMessage(playerid, 0xFF0000FF, "/c {FFFFFF}to change the color randomly.");
+    SendClientMessage(playerid, 0xFF0000FF, "/bar {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
+    SendClientMessage(playerid, 0xFF0000FF, "/layout {FFFFFF}to change the layout.");
+    SendClientMessage(playerid, 0xFF0000FF, "/value <float> {FFFFFF}to change the value.");
+    SendClientMessage(playerid, 0xFF0000FF, "/max <float> {FFFFFF}to change the maximum value.");
+    SendClientMessage(playerid, 0xFF0000FF, "/color {FFFFFF}to change the color randomly.");
     return 1;
 }
 
-CMD:b(playerid, params[]) {
+CMD:bar(playerid, params[]) {
     if(IsValidProgressBar3D(Bar)) {
         DestroyProgressBar3D(Bar);
     }
@@ -59,35 +54,45 @@ CMD:b(playerid, params[]) {
         Float:z;
     
     GetPlayerPos(playerid, x, y, z);
-    Bar = CreateProgressBar3D(COLOR, BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
+    Bar = CreateProgressBar3D(Colors[0], BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
     return 1;
 }
 
-CMD:l(playerid, params[]) {
+CMD:hide(playerid, params[]) {
+    HideProgressBar3D(Bar);
+    return 1;
+}
+
+CMD:show(playerid, params[]) {
+    ShowProgressBar3D(Bar);
+    return 1;
+}
+
+CMD:layout(playerid, params[]) {
     new layout = GetProgressBar3DLayout(Bar);
     SetProgressBar3DLayout(Bar, (layout < BAR_3D_LAYOUT_THICK) ? (layout + 1) : (BAR_3D_LAYOUT_THIN));
     return 1;
 }
 
-CMD:v(playerid, params[]) {
+CMD:value(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /v <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /value <number>");
     }
     SetProgressBar3DValue(Bar, value);
     return 1;
 }
 
-CMD:m(playerid, params[]) {
+CMD:max(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /m <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /max <number>");
     }
     SetProgressBar3DMaxValue(Bar, value);
     return 1;
 }
 
-CMD:c(playerid, params[]) {
+CMD:color(playerid, params[]) {
     SetProgressBar3DColor(Bar, Colors[random(sizeof(Colors))]);
     return 1;
 }
