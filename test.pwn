@@ -7,7 +7,7 @@
 static const Colors[7] = {
     0x0000FFFF, // Blue
     0x00FF00FF, // Green
-    0x00FFFFFF, // Cyan (doesn't work)
+    0x00FFFFFF, // Cyan
     0xFF0000FF, // Red
     0xFF00FFFF, // Purple
     0xFFFF00FF, // Yellow
@@ -77,7 +77,7 @@ CMD:layout(playerid, params[]) {
 CMD:value(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /value <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /value <float>");
     }
     SetProgressBar3DValue(Bar, value);
     return 1;
@@ -86,7 +86,7 @@ CMD:value(playerid, params[]) {
 CMD:max(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /max <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /max <float>");
     }
     SetProgressBar3DMaxValue(Bar, value);
     return 1;
