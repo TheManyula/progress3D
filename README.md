@@ -2,7 +2,7 @@
 
 A SA-MP library for creating progress bars in 3D space. This library was written and is maintained by Manyula.
 
-![progress3D by Manyula](https://www2.pic-upload.de/thumb/35895015/progress3D.png "progress3D by Manyula")
+![progress3D by Manyula](https://i.ibb.co/cChC4rT/progress3-D.png "progress3D by Manyula")
 
 ## Installation
 
@@ -130,8 +130,8 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-* `/bar` to create a 3D progress bar.
-* `/layout` to change the layout.
-* `/value <float>` to change the value.
-* `/max <float>` to change the maximum value.
-* `/color` to change the color randomly.
+- `/bar` to create a 3D progress bar.
+- `/layout` to change the layout.
+- `/value <float>` to change the value.
+- `/max <float>` to change the maximum value.
+- `/color` to change the color randomly.
