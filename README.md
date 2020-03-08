@@ -36,7 +36,7 @@ Include in your code and begin using the library:
 Bar3D:CreateProgressBar3D(color, layout, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
 ```
 
-Creates a 3D progress bar.
+Creates a 3D progress bar. Returns `INVALID_3D_BAR` if bar already exists.
 
 ```pawn
 HideProgressBar3D(Bar3D:barid)
@@ -54,7 +54,7 @@ Shows the specified 3D progress bar.
 DestroyProgressBar3D(Bar3D:barid)
 ```
 
-Destroys a 3D progress bar.
+Destroys a 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 GetProgressBar3DValue(Bar3D:barid)
@@ -66,7 +66,7 @@ Returns the current progress value.
 SetProgressBar3DValue(Bar3D:barid, Float:value)
 ```
 
-Updates the value of the specified 3D progress bar.
+Updates the value of the specified 3D progress bar. Returns 0 if value is greater than max value.
 
 ```pawn
 GetProgressBar3DColor(Bar3D:barid)
@@ -90,7 +90,7 @@ Returns the maximum value of the specified 3D progress bar.
 SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value)
 ```
 
-Updates the maximum value of the specified 3D progress bar.
+Updates the maximum value of the specified 3D progress bar. Returns 0 if the max value is smaller than the current value.
 
 ```pawn
 GetProgressBar3DLayout(Bar3D:barid)
@@ -102,13 +102,13 @@ Returns the layout of the specified 3D progress bar.
 SetProgressBar3DLayout(Bar3D:barid, layout)
 ```
 
-Updates the layout of the specified 3D progress bar.
+Updates the layout of the specified 3D progress bar. Returns 0 for an invalid layout.
 
 ```pawn
 IsValidProgressBar3D(Bar3D:barid)
 ```
 
-Returns true, if the specified 3D progress bar ID is valid and exists.
+Returns 1, if the specified 3D progress bar ID is valid and exists.
 
 ### Internal
 
