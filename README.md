@@ -118,8 +118,8 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-* `/bar` to create a 3D progress bar.
+* `/b` to create a 3D progress bar.
 * `/l` to change the layout.
 * `/v <number>` to change the value.
-* `/max <number>` to change the maximum value.
+* `/m <number>` to change the maximum value.
 * `/c` to change the color randomly.
