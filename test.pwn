@@ -37,7 +37,6 @@ public OnPlayerRequestClass(playerid, classid) {
 
 public OnPlayerSpawn(playerid) {
     SendClientMessage(playerid, 0xFF0000FF, "/bar {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
-    SendClientMessage(playerid, 0xFF0000FF, "/layout {FFFFFF}to change the layout.");
     SendClientMessage(playerid, 0xFF0000FF, "/value <float> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <float> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/color {FFFFFF}to change the color randomly.");
@@ -54,7 +53,7 @@ CMD:bar(playerid, params[]) {
         Float:z;
     
     GetPlayerPos(playerid, x, y, z);
-    Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
+    Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], true, x, y, z, 100.0, 50.0, 100.0);
     return 1;
 }
 
@@ -65,12 +64,6 @@ CMD:hide(playerid, params[]) {
 
 CMD:show(playerid, params[]) {
     ShowProgressBar3D(Bar);
-    return 1;
-}
-
-CMD:layout(playerid, params[]) {
-    new layout = GetProgressBar3DLayout(Bar);
-    SetProgressBar3DLayout(Bar, (layout < BAR_3D_LAYOUT_THICK) ? (layout + 1) : (BAR_3D_LAYOUT_THIN));
     return 1;
 }
 
