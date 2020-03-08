@@ -4,14 +4,14 @@
 
 #include "progress3D"
 
-static const Colors[8] = {
-    0x0000FFFF,
-    0x00FF00FF,
-    0x00FFFFFF,
-    0xFF0000FF,
-    0xFF00FFFF,
-    0xFFFF00FF,
-    0xFFFFFFFF
+static const Colors[7] = {
+    0x0000FFFF, // Blue
+    0x00FF00FF, // Green
+    0x00FFFFFF, // Cyan (doesn't work)
+    0xFF0000FF, // Red
+    0xFF00FFFF, // Purple
+    0xFFFF00FF, // Yellow
+    0xFFFFFFFF // White
 };
 
 static Bar3D:Bar;
@@ -54,7 +54,7 @@ CMD:bar(playerid, params[]) {
         Float:z;
     
     GetPlayerPos(playerid, x, y, z);
-    Bar = CreateProgressBar3D(Colors[0], BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
+    Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
     return 1;
 }
 
