@@ -39,6 +39,18 @@ Bar3D:CreateProgressBar3D(color, layout, Float:x, Float:y, Float:z, Float:max_va
 Creates a 3D progress bar.
 
 ```pawn
+HideProgressBar3D(Bar3D:barid)
+```
+
+Hides the specified 3D progress bar.
+
+```pawn
+ShowProgressBar3D(Bar3D:barid)
+```
+
+Shows the specified 3D progress bar.
+
+```pawn
 DestroyProgressBar3D(Bar3D:barid)
 ```
 
@@ -118,8 +130,8 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-* `/b` to create a 3D progress bar.
-* `/l` to change the layout.
-* `/v <number>` to change the value.
-* `/m <number>` to change the maximum value.
-* `/c` to change the color randomly.
+* `/bar` to create a 3D progress bar.
+* `/layout` to change the layout.
+* `/value <float>` to change the value.
+* `/max <float>` to change the maximum value.
+* `/color` to change the color randomly.
