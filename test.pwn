@@ -36,7 +36,7 @@ public OnPlayerRequestClass(playerid, classid) {
 }
 
 public OnPlayerSpawn(playerid) {
-    SendClientMessage(playerid, 0xFF0000FF, "/bar {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
+    SendClientMessage(playerid, 0xFF0000FF, "/bar <0 or 1> (0: no borders, 1: with borders) {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
     SendClientMessage(playerid, 0xFF0000FF, "/value <float> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <float> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/color {FFFFFF}to change the color randomly.");
@@ -48,12 +48,20 @@ CMD:bar(playerid, params[]) {
         DestroyProgressBar3D(Bar);
     }
 
+    new option = 0;
+    if(sscanf(params, "i", option)) {
+        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: no borders, 1: with borders)");
+    }
+    if(option != 0 && option != 1) {
+        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: no borders, 1: with borders)");
+    }
+
     new Float:x,
         Float:y,
         Float:z;
     
     GetPlayerPos(playerid, x, y, z);
-    Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], true, x, y, z, 100.0, 50.0, 100.0);
+    Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], (option == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
     return 1;
 }
 
