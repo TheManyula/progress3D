@@ -136,7 +136,7 @@ stock SetProgressBar3DColor(Bar3D:barid, color) {
     if(!IsValidProgressBar3D(barid)) {
         return 0;
     }
-    _UpdateProgress3D(_:barid, SetAlpha(color), Bars3D[_:barid][barLayout], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
+    _UpdateProgress3D(_:barid, color, Bars3D[_:barid][barLayout], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][barColor] = color;
     return 1;
 }
