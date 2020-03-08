@@ -33,7 +33,7 @@ Include in your code and begin using the library:
 ### Functions
 
 ```pawn
-Bar3D:CreateProgressBar3D(Float:x, Float:y, Float:z, layout, fill_color, background_color, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
+Bar3D:CreateProgressBar3D(color, layout, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
 ```
 
 Creates a 3D progress bar.
@@ -57,28 +57,16 @@ SetProgressBar3DValue(Bar3D:barid, Float:value)
 Updates the value of the specified 3D progress bar.
 
 ```pawn
-GetProgressBar3DFillColor(Bar3D:barid)
+GetProgressBar3DColor(Bar3D:barid)
 ```
 
-Returns the fill color of the specified 3D progress bar.
+Returns the color of the specified 3D progress bar.
 
 ```pawn
-SetProgressBar3DFillColor(Bar3D:barid, fill_color)
+SetProgressBar3DColor(Bar3D:barid, color)
 ```
 
-Updates the fill color of the specified 3D progress bar.
-
-```pawn
-GetProgressBar3DBackgroundColor(Bar3D:barid)
-```
-
-Returns the background color of the specified 3D progress bar.
-
-```pawn
-SetProgressBar3DBackgroundColor(Bar3D:barid, background_color)
-```
-
-Updates the background color of the specified 3D progress bar.
+Updates the color of the specified 3D progress bar.
 
 ```pawn
 GetProgressBar3DMaxValue(Bar3D:barid)
@@ -113,10 +101,10 @@ Returns true, if the specified 3D progress bar ID is valid and exists.
 ### Internal
 
 ```pawn
-_UpdateProgress3D(barid, layout, fill_color, background_color, Float:max_value, Float:value)
+_UpdateProgress3D(barid, color, layout, Float:max_value, Float:value)
 ```
 
-Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the layout, progress value, maximum value, fill color or background color are updated.
+Updates the properties of a 3D progress bar. Called on creation, deletion or whenever the layout, progress value, maximum value or color are updated.
 
 ## Testing
 
@@ -134,5 +122,4 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 * `/l` to change the layout.
 * `/v <number>` to change the value.
 * `/max <number>` to change the maximum value.
-* `/fill` to change the fill color randomly.
-* `/bg` to change the background color randomly.
+* `/c` to change the color randomly.
