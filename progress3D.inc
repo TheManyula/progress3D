@@ -12,8 +12,8 @@
 #include <YSI_Data\y_iterate>
 #include <YSI_Coding\y_hooks>
 
-#define SetAlpha(%0)            %0 & 0xFFFFFFFE
-#define Darken(%0)              %0 & 0x80808000
+#define SetAlpha(%0)            (%0 & 0xFFFFFFFE)
+#define Darken(%0)              (%0 & 0x80808000)
 
 #define MAX_3D_BARS             512
 #define INVALID_3D_BAR          Bar3D:-1
