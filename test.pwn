@@ -41,16 +41,15 @@ public OnPlayerSpawn(playerid) {
     SendClientMessage(playerid, 0xFFFFFFFF, " ");
     SendClientMessage(playerid, 0xFFFFFFFF, " ");
     SendClientMessage(playerid, 0xFFFFFFFF, "============================== COMMANDS ==============================");
-    SendClientMessage(playerid, 0xFF0000FF, "/bar {FFFFFF}to create a 3D progress bar.");
-    SendClientMessage(playerid, 0xFF0000FF, " => Please be aware that the 3D progress bar will only become visible, if you move after the creation!");
+    SendClientMessage(playerid, 0xFF0000FF, "/b {FFFFFF}to create a 3D progress bar. (only visible, if you move after the creation)");
     SendClientMessage(playerid, 0xFF0000FF, "/l {FFFFFF}to change the layout.");
     SendClientMessage(playerid, 0xFF0000FF, "/v <number> {FFFFFF}to change the value.");
-    SendClientMessage(playerid, 0xFF0000FF, "/max <number> {FFFFFF}to change the maximum value.");
+    SendClientMessage(playerid, 0xFF0000FF, "/m <number> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/c {FFFFFF}to change the color randomly.");
     return 1;
 }
 
-CMD:bar(playerid, params[]) {
+CMD:b(playerid, params[]) {
     if(IsValidProgressBar3D(Bar)) {
         DestroyProgressBar3D(Bar);
     }
@@ -73,16 +72,16 @@ CMD:l(playerid, params[]) {
 CMD:v(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "[USAGE] /v <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /v <number>");
     }
     SetProgressBar3DValue(Bar, value);
     return 1;
 }
 
-CMD:max(playerid, params[]) {
+CMD:m(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "[USAGE] /max <number>");
+        return SendClientMessage(playerid, -1, "USAGE: /m <number>");
     }
     SetProgressBar3DMaxValue(Bar, value);
     return 1;
