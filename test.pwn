@@ -4,11 +4,9 @@
 
 #include "progress3D"
 
-#define FILL_COLOR          0xFF0000FF
-#define BACKGROUND_COLOR    0xFFFFFFFF
+#define COLOR 0xFF0000FF
 
 static const Colors[8] = {
-    0x000000FF,
     0x0000FFFF,
     0x00FF00FF,
     0x00FFFFFF,
@@ -48,8 +46,7 @@ public OnPlayerSpawn(playerid) {
     SendClientMessage(playerid, 0xFF0000FF, "/l {FFFFFF}to change the layout.");
     SendClientMessage(playerid, 0xFF0000FF, "/v <number> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <number> {FFFFFF}to change the maximum value.");
-    SendClientMessage(playerid, 0xFF0000FF, "/fill {FFFFFF}to change the fill color randomly.");
-    SendClientMessage(playerid, 0xFF0000FF, "/bg {FFFFFF}to change the background color randomly.");
+    SendClientMessage(playerid, 0xFF0000FF, "/c {FFFFFF}to change the color randomly.");
     return 1;
 }
 
@@ -63,7 +60,7 @@ CMD:bar(playerid, params[]) {
         Float:z;
     
     GetPlayerPos(playerid, x, y, z);
-    Bar = CreateProgressBar3D(x, y, z, BAR_3D_LAYOUT_NORMAL, FILL_COLOR, BACKGROUND_COLOR, 100.0, 50.0, 100.0);
+    Bar = CreateProgressBar3D(COLOR, BAR_3D_LAYOUT_NORMAL, x, y, z, 100.0, 50.0, 100.0);
     return 1;
 }
 
@@ -75,30 +72,23 @@ CMD:l(playerid, params[]) {
 
 CMD:v(playerid, params[]) {
     new Float:value;
-
-    if(sscanf(params, "f", value))
-        return SendClientMessage(playerid, -1, "[USAGE] /value <number>");
-
+    if(sscanf(params, "f", value)) {
+        return SendClientMessage(playerid, -1, "[USAGE] /v <number>");
+    }
     SetProgressBar3DValue(Bar, value);
     return 1;
 }
 
 CMD:max(playerid, params[]) {
     new Float:value;
-
-    if(sscanf(params, "f", value))
-        return SendClientMessage(playerid, -1, "[USAGE] /setmax <number>");
-
+    if(sscanf(params, "f", value)) {
+        return SendClientMessage(playerid, -1, "[USAGE] /max <number>");
+    }
     SetProgressBar3DMaxValue(Bar, value);
     return 1;
 }
 
-CMD:fill(playerid, params[]) {
-    SetProgressBar3DFillColor(Bar, Colors[random(sizeof(Colors))]);
-    return 1;
-}
-
-CMD:bg(playerid, params[]) {
-    SetProgressBar3DBackgroundColor(Bar, Colors[random(sizeof(Colors))]);
+CMD:c(playerid, params[]) {
+    SetProgressBar3DColor(Bar, Colors[random(sizeof(Colors))]);
     return 1;
 }
