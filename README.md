@@ -39,13 +39,13 @@ Creates a 3D progress bar. Returns `INVALID_3D_BAR` if bar already exists.
 HideProgressBar3D(Bar3D:barid)
 ```
 
-Hides the specified 3D progress bar.
+Hides the specified 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 ShowProgressBar3D(Bar3D:barid)
 ```
 
-Shows the specified 3D progress bar.
+Shows the specified 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 DestroyProgressBar3D(Bar3D:barid)
@@ -54,46 +54,46 @@ DestroyProgressBar3D(Bar3D:barid)
 Destroys a 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
-GetProgressBar3DValue(Bar3D:barid)
+Float:GetProgressBar3DValue(Bar3D:barid)
 ```
 
-Returns the current progress value.
+Returns the current progress value. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 SetProgressBar3DValue(Bar3D:barid, Float:value)
 ```
 
-Updates the value of the specified 3D progress bar. Returns 0 if value is greater than max value.
+Updates the value of the specified 3D progress bar. Returns 0 if value is greater than max value. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 GetProgressBar3DColor(Bar3D:barid)
 ```
 
-Returns the color of the specified 3D progress bar.
+Returns the color of the specified 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 SetProgressBar3DColor(Bar3D:barid, color)
 ```
 
-Updates the color of the specified 3D progress bar.
+Updates the color of the specified 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
-GetProgressBar3DMaxValue(Bar3D:barid)
+Float:GetProgressBar3DMaxValue(Bar3D:barid)
 ```
 
-Returns the maximum value of the specified 3D progress bar.
+Returns the maximum value of the specified 3D progress bar. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value)
 ```
 
-Updates the maximum value of the specified 3D progress bar. Returns 0 if the max value is smaller than the current value.
+Updates the maximum value of the specified 3D progress bar. Returns 0 if the max value is smaller than the current value. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ```pawn
 IsValidProgressBar3D(Bar3D:barid)
 ```
 
-Returns 1, if the specified 3D progress bar ID is valid and exists.
+Returns 1, if the specified 3D progress bar ID is valid and exists. Returns `INVALID_3D_BAR` if bar doesn't exist.
 
 ### Internal
 
@@ -115,7 +115,9 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-- `/bar <0 or 1>` (0: no borders, 1: with borders) to create a 3D progress bar.
+- `/bar <0 or 1> <0 or 1>` to create a 3D progress bar.
+  1. Auto-Fill Mode (0: disable, 1: enable)
+  2. Borders (0: disable, 1: enable)
 - `/value <float>` to change the value.
 - `/max <float>` to change the maximum value.
 - `/color` to change the color randomly.
