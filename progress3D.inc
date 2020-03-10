@@ -85,12 +85,20 @@ stock Bar3D:CreateProgressBar3D(color, bool:borders, Float:x, Float:y, Float:z, 
 }
 
 stock HideProgressBar3D(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_3D_BAR;
+    }
+
     _UpdateProgress3D(_:barid, 0x00000000, false, Bars3D[_:barid][maxValue], Bars3D[_:barid][maxValue]);
     Bars3D[_:barid][barShown] = false;
     return 1;
 }
 
 stock ShowProgressBar3D(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_3D_BAR;
+    }
+
     _UpdateProgress3D(_:barid, Bars3D[_:barid][barColor], true, Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
     Bars3D[_:barid][barShown] = true;
     return 1;
@@ -119,16 +127,16 @@ stock DestroyProgressBar3D(Bar3D:barid) {
     return 1;
 }
 
-stock GetProgressBar3DValue(Bar3D:barid) {
+stock Float:GetProgressBar3DValue(Bar3D:barid) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return Float:INVALID_3D_BAR;
     }
     return Bars3D[_:barid][barValue];
 }
 
 stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return _:INVALID_3D_BAR;
     }
 
     if(value > Bars3D[_:barid][maxValue]) {
@@ -142,14 +150,14 @@ stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
 
 stock GetProgressBar3DColor(Bar3D:barid) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return _:INVALID_3D_BAR;
     }
-    return _:Bars3D[_:barid][barColor];
+    return Bars3D[_:barid][barColor];
 }
 
 stock SetProgressBar3DColor(Bar3D:barid, color) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return _:INVALID_3D_BAR;
     }
 
     _UpdateProgress3D(_:barid, color, Bars3D[_:barid][barShown], Bars3D[_:barid][maxValue], Bars3D[_:barid][barValue]);
@@ -157,16 +165,16 @@ stock SetProgressBar3DColor(Bar3D:barid, color) {
     return 1;
 }
 
-stock GetProgressBar3DMaxValue(Bar3D:barid) {
+stock Float:GetProgressBar3DMaxValue(Bar3D:barid) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return Float:INVALID_3D_BAR;
     }
-    return _:Bars3D[_:barid][maxValue];
+    return Bars3D[_:barid][maxValue];
 }
 
 stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
     if(!IsValidProgressBar3D(barid)) {
-        return 0;
+        return _:INVALID_3D_BAR;
     }
 
     if(max_value < Bars3D[_:barid][barValue]) {
