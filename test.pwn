@@ -37,7 +37,9 @@ public OnPlayerRequestClass(playerid, classid) {
 }
 
 public OnPlayerSpawn(playerid) {
-    SendClientMessage(playerid, 0xFF0000FF, "/bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders) {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
+    SendClientMessage(playerid, 0xFF0000FF, "/bar <0 or 1> <0 or 1> {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
+    SendClientMessage(playerid, 0xFF0000FF, "1. Auto-Fill Mode (0: disable, 1: enable)");
+    SendClientMessage(playerid, 0xFF0000FF, "2. Borders (0: disable, 1: enable)");
     SendClientMessage(playerid, 0xFF0000FF, "/value <float> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <float> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/color {FFFFFF}to change the color randomly.");
