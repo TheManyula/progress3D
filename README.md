@@ -22,10 +22,10 @@ Include in your code and begin using the library:
 
 ### Constants
 
-| Constant       | Description                                                                                                                                                                                                    |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MAX_3D_BARS    | Total amount of 3D progress bars that can be created.</br>Defaults to the 3D text label limit (currently 1024) _divided by 2_ when using **no borders** (512) and _divided by 4_ when **using borders** (256). |
-| INVALID_3D_BAR | Return value for an invalid or non-existent 3D progress bar.                                                                                                                                                   |
+| Constant       | Description                                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| MAX_3D_BARS    | Total amount of 3D progress bars that can be created.</br>Defaults to the 3D text label limit (currently 1024) _divided by 4_, so 256. |
+| INVALID_3D_BAR | Return value for an invalid or non-existent 3D progress bar.                                                                           |
 
 ### Functions
 
