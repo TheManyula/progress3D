@@ -65,7 +65,7 @@ stock Bar3D:CreateProgressBar3D(color, bool:borders, Float:x, Float:y, Float:z, 
     }
 
     if(borders) {
-        Bars3D[barid][barBorders] = true;
+        Bars3D[barid][barBorders] = borders;
         Bars3D[barid][BgBar1] = CreateDynamic3DTextLabel("||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0075, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
         Bars3D[barid][BgBar2] = CreateDynamic3DTextLabel(" ||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0075, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
     }
@@ -102,7 +102,6 @@ stock DestroyProgressBar3D(Bar3D:barid) {
     }
 
     Bars3D[_:barid][barColor] = -1;
-    Bars3D[_:barid][barBorders] = false;
     Bars3D[_:barid][barShown] = false;
     Bars3D[_:barid][maxValue] = -1;
     Bars3D[_:barid][barValue] = -1;
@@ -111,6 +110,7 @@ stock DestroyProgressBar3D(Bar3D:barid) {
     DestroyDynamic3DTextLabel(Bars3D[_:barid][Bar2]);
 
     if(Bars3D[_:barid][barBorders]) {
+        Bars3D[_:barid][barBorders] = false;
         DestroyDynamic3DTextLabel(Bars3D[_:barid][BgBar1]);
         DestroyDynamic3DTextLabel(Bars3D[_:barid][BgBar2]);
     }
