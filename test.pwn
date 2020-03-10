@@ -1,6 +1,7 @@
 #include <a_samp>
 #include <zcmd>
 #include <sscanf2>
+#include <YSI_Coding\y_timers>
 
 #include "progress3D"
 
@@ -36,11 +37,26 @@ public OnPlayerRequestClass(playerid, classid) {
 }
 
 public OnPlayerSpawn(playerid) {
-    SendClientMessage(playerid, 0xFF0000FF, "/bar <0 or 1> (0: no borders, 1: with borders) {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
+    SendClientMessage(playerid, 0xFF0000FF, "/bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders) {FFFFFF}to create a 3D progress bar. (only visible if you move after the creation)");
     SendClientMessage(playerid, 0xFF0000FF, "/value <float> {FFFFFF}to change the value.");
     SendClientMessage(playerid, 0xFF0000FF, "/max <float> {FFFFFF}to change the maximum value.");
     SendClientMessage(playerid, 0xFF0000FF, "/color {FFFFFF}to change the color randomly.");
     return 1;
+}
+
+new bool:toggle = false;
+task Update[100]() {
+    if(GetProgressBar3DValue(Bar) <= 0.0) {
+        toggle = true;
+    } else if(GetProgressBar3DValue(Bar) >= 100.0) {
+        toggle = false;
+    }
+
+    if(toggle) {
+        SetProgressBar3DValue(Bar, GetProgressBar3DValue(Bar)+2.0);
+    } else {
+        SetProgressBar3DValue(Bar, GetProgressBar3DValue(Bar)-2.0);
+    }
 }
 
 CMD:bar(playerid, params[]) {
@@ -48,12 +64,17 @@ CMD:bar(playerid, params[]) {
         DestroyProgressBar3D(Bar);
     }
 
-    new option = 0;
-    if(sscanf(params, "i", option)) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: no borders, 1: with borders)");
+    new option = 0,
+        auto = 0;
+
+    if(sscanf(params, "ii", auto, option)) {
+        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
+    }
+    if(auto != 0 && auto != 1) {
+        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
     }
     if(option != 0 && option != 1) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: no borders, 1: with borders)");
+        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
     }
 
     new Float:x,
@@ -62,6 +83,7 @@ CMD:bar(playerid, params[]) {
     
     GetPlayerPos(playerid, x, y, z);
     Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], (option == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
+    Update();
     return 1;
 }
 
