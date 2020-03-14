@@ -14,7 +14,7 @@
 #define SetAlpha(%0)   (%0 & 0xFFFFFFFE)
 #define Darken(%0)     (%0 & 0x80808000)
 
-#define MAX_3D_BARS    256
+#define MAX_3D_BARS    1024
 #define INVALID_3D_BAR Bar3D:-1
 
 enum BAR_3D_DATA {
