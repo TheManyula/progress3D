@@ -107,7 +107,7 @@ Returns 1, if the specified 3D progress bar ID is valid and exists. Returns `INV
 ___
 
 ```pawn
-PlayerBar3D:CreateProgressBar3D(playerid, color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
+PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
 ```
 
 Creates a player 3D progress bar. Returns `INVALID_PLAYER_3D_BAR` if bar already exists.
@@ -116,7 +116,7 @@ Creates a player 3D progress bar. Returns `INVALID_PLAYER_3D_BAR` if bar already
 HidePlayerProgressBar3D(playerid, PlayerBar3D:barid)
 ```
 
-Hides the specified player 3D progress bar. Returns `INVALID_Player_3D_BAR` if bar doesn't exist.
+Hides the specified player 3D progress bar. Returns `INVALID_PLAYER_3D_BAR` if bar doesn't exist.
 
 ```pawn
 ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid)
@@ -125,7 +125,7 @@ ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid)
 Shows the specified player 3D progress bar. Returns `INVALID_PLAYER_3D_BAR` if bar doesn't exist.
 
 ```pawn
-DestroyPlayerProgressBar3D(PlayerBar3D:barid)
+DestroyPlayerProgressBar3D(playerid, PlayerBar3D:barid)
 ```
 
 Destroys a 3D player progress bar. Returns `INVALID_PLAYER_3D_BAR` if bar doesn't exist.
