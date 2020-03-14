@@ -98,7 +98,10 @@ CMD:bar(playerid, params[]) {
     new Float:x, Float:y, Float:z;
     GetPlayerPos(playerid, x, y, z);
     Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], (borders == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
-    update = repeat Update();
+    
+    if(autofill) {
+        update = repeat Update();
+    }
     return 1;
 }
 
@@ -120,7 +123,10 @@ CMD:pbar(playerid, params[]) {
     new Float:x, Float:y, Float:z;
     GetPlayerPos(playerid, x, y, z);
     PlayerBar = CreatePlayerProgressBar3D(playerid, Colors[random(sizeof(Colors))], (borders == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
-    pupdate = repeat pUpdate(playerid);
+
+    if(autofill) {
+        pupdate = repeat pUpdate(playerid);
+    }
     return 1;
 }
 
