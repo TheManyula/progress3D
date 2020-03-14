@@ -38,7 +38,7 @@ enum BAR_3D_DATA {
 static Bar3D:GlobalBars3D[MAX_GLOBAL_3D_BARS][BAR_3D_DATA],
        PlayerBar3D:PlayerBars3D[MAX_PLAYERS][MAX_PLAYER_3D_BARS][BAR_3D_DATA],
        Iterator:GlobalBars3D_Index<MAX_GLOBAL_3D_BARS>,
-       Iterator:PlayerBars3D_Index<MAX_PLAYER_3D_BARS>;
+       Iterator:PlayerBars3D_Index[MAX_PLAYERS]<MAX_PLAYER_3D_BARS>;
 
 static _UpdateProgress3D(barid, playerid, type, color, bool:shown, Float:max, Float:value) {    
     new bar1_idx,
@@ -207,7 +207,7 @@ stock PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float
         return INVALID_PLAYER_3D_BAR;
     }
     
-    new barid = Iter_Free(PlayerBars3D_Index);
+    new barid = Iter_Free(PlayerBars3D_Index[playerid]);
     if(barid == ITER_NONE) {
         return INVALID_PLAYER_3D_BAR;
     }
@@ -228,12 +228,12 @@ stock PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float
     PlayerBars3D[playerid][barid][maxValue] = max_value;
     PlayerBars3D[playerid][barid][barValue] = init_value;
 
-    Iter_Add(PlayerBars3D_Index, barid);
+    Iter_Add(PlayerBars3D_Index[playerid], barid);
     return PlayerBar3D:barid;
 }
 
 stock HidePlayerProgressBar3D(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -243,7 +243,7 @@ stock HidePlayerProgressBar3D(playerid, PlayerBar3D:barid) {
 }
 
 stock ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -253,7 +253,7 @@ stock ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
 }
 
 stock DestroyPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -271,19 +271,19 @@ stock DestroyPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
         DestroyDynamic3DTextLabel(PlayerBars3D[playerid][_:barid][BgBar2]);
     }
 
-    Iter_Remove(PlayerBars3D_Index, _:barid);
+    Iter_Remove(PlayerBars3D_Index[playerid], _:barid);
     return 1;
 }
 
 stock Float:GetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return Float:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][barValue];
 }
 
 stock SetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid, Float:value) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -293,14 +293,14 @@ stock SetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid, Float:value) {
 }
 
 stock GetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][barColor];
 }
 
 stock SetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid, color) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -310,14 +310,14 @@ stock SetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid, color) {
 }
 
 stock Float:GetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][maxValue];
 }
 
 stock SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_value) {
-    if(!IsValidPlayerProgressBar3D(barid)) {
+    if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
 
@@ -330,6 +330,6 @@ stock SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_valu
     return 1;
 }
 
-stock IsValidPlayerProgressBar3D(PlayerBar3D:barid) {
-    return Iter_Contains(PlayerBars3D_Index, _:barid);
+stock IsValidPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
+    return Iter_Contains(PlayerBars3D_Index[playerid], _:barid);
 }
