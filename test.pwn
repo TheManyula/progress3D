@@ -112,7 +112,7 @@ CMD:pbar(playerid, params[]) {
         return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
     }
 
-    if(IsValidPlayerProgressBar3D(PlayerBar)) {
+    if(IsValidPlayerProgressBar3D(playerid, PlayerBar)) {
         stop pupdate;
         DestroyPlayerProgressBar3D(playerid, PlayerBar);
     }
