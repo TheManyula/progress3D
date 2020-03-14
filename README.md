@@ -167,7 +167,7 @@ SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_value)
 Updates the maximum value of the specified player 3D progress bar. Returns 0 if the max value is smaller than the current value. Returns `INVALID_PLAYER_3D_BAR` if bar doesn't exist.
 
 ```pawn
-IsValidPlayerProgressBar3D(PlayerBar3D:barid)
+IsValidPlayerProgressBar3D(playerid, PlayerBar3D:barid)
 ```
 
 Returns 1, if the specified player 3D progress bar ID is valid and exists. Returns `INVALID_PLAYER_3D_BAR` if bar doesn't exist.
@@ -175,10 +175,10 @@ Returns 1, if the specified player 3D progress bar ID is valid and exists. Retur
 ### Internal
 
 ```pawn
-_UpdateProgress3D(barid, color, bool:shown, Float:max_value, Float:value)
+_UpdateProgress3D(barid, playerid, type, color, bool:shown, Float:max_value, Float:value)
 ```
 
-Updates the properties of a 3D progress bar. Called on creation, deletion or whenever it is shown or hidden, or the color, maximum value progress value are updated.
+Updates the properties of a 3D progress bar. Called whenever any property of the 3D progress bar is changed.
 
 ## Testing
 
@@ -192,9 +192,9 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-- `/bar <0 or 1> <0 or 1>` to create a 3D progress bar.
+* `/bar <0 or 1> <0 or 1>` to create a 3D progress bar.
   1. Auto-Fill Mode (0: disable, 1: enable)
   2. Borders (0: disable, 1: enable)
-- `/value <float>` to change the value.
-- `/max <float>` to change the maximum value.
-- `/color` to change the color randomly.
+* `/value <float>` to change the value.
+* `/max <float>` to change the maximum value.
+* `/color` to change the color randomly.
