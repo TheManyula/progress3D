@@ -104,7 +104,7 @@ IsValidProgressBar3D(Bar3D:barid)
 
 Returns 1, if the specified 3D progress bar ID is valid and exists. Returns `INVALID_GLOBAL_3D_BAR` if bar doesn't exist.
 
-jshdlkfjshklfjhalksjfhklajsdhfjkashf
+___
 
 ```pawn
 PlayerBar3D:CreateProgressBar3D(playerid, color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
