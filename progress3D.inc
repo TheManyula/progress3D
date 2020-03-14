@@ -66,6 +66,8 @@ static _UpdateProgress3D(barid, playerid, type, color, bool:shown, Float:max, Fl
     return 1;
 }
 
+// API for Progress 3D Bars
+
 stock Bar3D:CreateProgressBar3D(color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0) {
     new barid = Iter_Free(GlobalBars3D_Index);
     if(barid == ITER_NONE) {
@@ -91,6 +93,114 @@ stock Bar3D:CreateProgressBar3D(color, bool:borders, Float:x, Float:y, Float:z, 
     Iter_Add(GlobalBars3D_Index, barid);
     return Bar3D:barid;
 }
+
+stock HideProgressBar3D(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, 0x00000000, false, GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][maxValue]);
+    GlobalBars3D[_:barid][barShown] = false;
+    return 1;
+}
+
+stock ShowProgressBar3D(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], true, GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][barValue]);
+    GlobalBars3D[_:barid][barShown] = true;
+    return 1;
+}
+
+stock DestroyProgressBar3D(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    GlobalBars3D[_:barid][barColor] = -1;
+    GlobalBars3D[_:barid][barShown] = false;
+    GlobalBars3D[_:barid][maxValue] = -1;
+    GlobalBars3D[_:barid][barValue] = -1;
+
+    DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][Bar1]);
+    DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][Bar2]);
+
+    if(GlobalBars3D[_:barid][barBorders]) {
+        GlobalBars3D[_:barid][barBorders] = false;
+        DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][BgBar1]);
+        DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][BgBar2]);
+    }
+
+    Iter_Remove(GlobalBars3D_Index, _:barid);
+    return 1;
+}
+
+stock Float:GetProgressBar3DValue(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return Float:INVALID_GLOBAL_3D_BAR;
+    }
+    return GlobalBars3D[_:barid][barValue];
+}
+
+stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    if(value > GlobalBars3D[_:barid][maxValue]) {
+        return 0;
+    }
+
+    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], GlobalBars3D[_:barid][barShown], GlobalBars3D[_:barid][maxValue], value);
+    GlobalBars3D[_:barid][barValue] = value;
+    return 1;
+}
+
+stock GetProgressBar3DColor(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+    return GlobalBars3D[_:barid][barColor];
+}
+
+stock SetProgressBar3DColor(Bar3D:barid, color) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, color, GlobalBars3D[_:barid][barShown], GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][barValue]);
+    GlobalBars3D[_:barid][barColor] = color;
+    return 1;
+}
+
+stock Float:GetProgressBar3DMaxValue(Bar3D:barid) {
+    if(!IsValidProgressBar3D(barid)) {
+        return Float:INVALID_GLOBAL_3D_BAR;
+    }
+    return GlobalBars3D[_:barid][maxValue];
+}
+
+stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
+    if(!IsValidProgressBar3D(barid)) {
+        return _:INVALID_GLOBAL_3D_BAR;
+    }
+
+    if(max_value < GlobalBars3D[_:barid][barValue]) {
+        return 0;
+    }
+
+    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], GlobalBars3D[_:barid][barShown], max_value, GlobalBars3D[_:barid][barValue]);
+    GlobalBars3D[_:barid][maxValue] = max_value;
+    return 1;
+}
+
+stock IsValidProgressBar3D(Bar3D:barid) {
+	return Iter_Contains(GlobalBars3D_Index, _:barid);
+}
+
+// API for Player Progress 3D Bars
 
 stock PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0) {
     if(playerid == -1) {
@@ -122,16 +232,6 @@ stock PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float
     return PlayerBar3D:barid;
 }
 
-stock HideProgressBar3D(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, 0x00000000, false, GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][maxValue]);
-    GlobalBars3D[_:barid][barShown] = false;
-    return 1;
-}
-
 stock HidePlayerProgressBar3D(playerid, PlayerBar3D:barid) {
     if(!IsValidPlayerProgressBar3D(barid)) {
         return _:INVALID_PLAYER_3D_BAR;
@@ -142,16 +242,6 @@ stock HidePlayerProgressBar3D(playerid, PlayerBar3D:barid) {
     return 1;
 }
 
-stock ShowProgressBar3D(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], true, GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][barValue]);
-    GlobalBars3D[_:barid][barShown] = true;
-    return 1;
-}
-
 stock ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
     if(!IsValidPlayerProgressBar3D(barid)) {
         return _:INVALID_PLAYER_3D_BAR;
@@ -159,29 +249,6 @@ stock ShowPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
 
     _UpdateProgress3D(_:barid, playerid, BAR_3D_TYPE_PLAYER, PlayerBars3D[playerid][_:barid][barColor], true, PlayerBars3D[playerid][_:barid][maxValue], PlayerBars3D[playerid][_:barid][barValue]);
     PlayerBars3D[playerid][_:barid][barShown] = true;
-    return 1;
-}
-
-stock DestroyProgressBar3D(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    GlobalBars3D[_:barid][barColor] = -1;
-    GlobalBars3D[_:barid][barShown] = false;
-    GlobalBars3D[_:barid][maxValue] = -1;
-    GlobalBars3D[_:barid][barValue] = -1;
-
-    DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][Bar1]);
-    DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][Bar2]);
-
-    if(GlobalBars3D[_:barid][barBorders]) {
-        GlobalBars3D[_:barid][barBorders] = false;
-        DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][BgBar1]);
-        DestroyDynamic3DTextLabel(GlobalBars3D[_:barid][BgBar2]);
-    }
-
-    Iter_Remove(GlobalBars3D_Index, _:barid);
     return 1;
 }
 
@@ -208,32 +275,11 @@ stock DestroyPlayerProgressBar3D(playerid, PlayerBar3D:barid) {
     return 1;
 }
 
-stock Float:GetProgressBar3DValue(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return Float:INVALID_GLOBAL_3D_BAR;
-    }
-    return GlobalBars3D[_:barid][barValue];
-}
-
 stock Float:GetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid) {
     if(!IsValidPlayerProgressBar3D(barid)) {
         return Float:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][barValue];
-}
-
-stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    if(value > GlobalBars3D[_:barid][maxValue]) {
-        return 0;
-    }
-
-    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], GlobalBars3D[_:barid][barShown], GlobalBars3D[_:barid][maxValue], value);
-    GlobalBars3D[_:barid][barValue] = value;
-    return 1;
 }
 
 stock SetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid, Float:value) {
@@ -246,28 +292,11 @@ stock SetPlayerProgressBar3DValue(playerid, PlayerBar3D:barid, Float:value) {
     return 1;
 }
 
-stock GetProgressBar3DColor(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-    return GlobalBars3D[_:barid][barColor];
-}
-
 stock GetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid) {
     if(!IsValidPlayerProgressBar3D(barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][barColor];
-}
-
-stock SetProgressBar3DColor(Bar3D:barid, color) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, color, GlobalBars3D[_:barid][barShown], GlobalBars3D[_:barid][maxValue], GlobalBars3D[_:barid][barValue]);
-    GlobalBars3D[_:barid][barColor] = color;
-    return 1;
 }
 
 stock SetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid, color) {
@@ -280,32 +309,11 @@ stock SetPlayerProgressBar3DColor(playerid, PlayerBar3D:barid, color) {
     return 1;
 }
 
-stock Float:GetProgressBar3DMaxValue(Bar3D:barid) {
-    if(!IsValidProgressBar3D(barid)) {
-        return Float:INVALID_GLOBAL_3D_BAR;
-    }
-    return GlobalBars3D[_:barid][maxValue];
-}
-
 stock Float:GetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid) {
     if(!IsValidPlayerProgressBar3D(barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
     return PlayerBars3D[playerid][_:barid][maxValue];
-}
-
-stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
-    if(!IsValidProgressBar3D(barid)) {
-        return _:INVALID_GLOBAL_3D_BAR;
-    }
-
-    if(max_value < GlobalBars3D[_:barid][barValue]) {
-        return 0;
-    }
-
-    _UpdateProgress3D(_:barid, -1, BAR_3D_TYPE_GLOBAL, GlobalBars3D[_:barid][barColor], GlobalBars3D[_:barid][barShown], max_value, GlobalBars3D[_:barid][barValue]);
-    GlobalBars3D[_:barid][maxValue] = max_value;
-    return 1;
 }
 
 stock SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_value) {
@@ -320,10 +328,6 @@ stock SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_valu
     _UpdateProgress3D(_:barid, playerid, BAR_3D_TYPE_PLAYER, PlayerBars3D[playerid][_:barid][barColor], PlayerBars3D[playerid][_:barid][barShown], max_value, PlayerBars3D[playerid][_:barid][barValue]);
     PlayerBars3D[playerid][_:barid][maxValue] = max_value;
     return 1;
-}
-
-stock IsValidProgressBar3D(Bar3D:barid) {
-	return Iter_Contains(GlobalBars3D_Index, _:barid);
 }
 
 stock IsValidPlayerProgressBar3D(PlayerBar3D:barid) {
