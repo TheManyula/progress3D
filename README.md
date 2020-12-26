@@ -9,7 +9,7 @@ A SA-MP library for creating progress bars in 3D space. This library was written
 Simply install to your project:
 
 ```bash
-sampctl package install TheManyula/progress3D:v2.3.1
+sampctl package install TheManyula/progress3D:v2.3.2
 ```
 
 Include in your code and begin using the library:
