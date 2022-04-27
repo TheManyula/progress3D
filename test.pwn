@@ -22,9 +22,9 @@ static Bar3D:Bar,
        Timer:pupdate;
 
 main() {
-    print("\n+-----------------------------------+");
+    print("+-----------------------------------+");
     print("| progress3D demo script by Manyula |");
-    print("+-----------------------------------+\n");
+    print("+-----------------------------------+");
 }
 
 public OnGameModeInit() {
@@ -60,11 +60,7 @@ timer Update[100]() {
         toggle = false;
     }
 
-    if(toggle) {
-        SetProgressBar3DValue(Bar, currentValue+2.0);
-    } else {
-        SetProgressBar3DValue(Bar, currentValue-2.0);
-    }
+    SetProgressBar3DValue(Bar, (toggle) ? (currentValue+2.0) : (currentValue-2.0));
 }
 
 timer pUpdate[100](playerid) {
@@ -75,20 +71,13 @@ timer pUpdate[100](playerid) {
         toggle = false;
     }
 
-    if(toggle) {
-        SetPlayerProgressBar3DValue(playerid, PlayerBar, currentValue+2.0);
-    } else {
-        SetPlayerProgressBar3DValue(playerid, PlayerBar, currentValue-2.0);
-    }
+    SetPlayerProgressBar3DValue(playerid, PlayerBar, (toggle) ? (currentValue+2.0) : (currentValue-2.0));
 }
 
 CMD:bar(playerid, params[]) {
-    new autofill, borders;
-    if(sscanf(params, "ii", autofill, borders)) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
-    } else if(autofill != 0 && autofill != 1) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
-    } else if(borders != 0 && borders != 1) {
+    new autofill,
+        borders;
+    if(sscanf(params, "ii", autofill, borders) || (autofill != 0 && autofill != 1) || (borders != 0 && borders != 1)) {
         return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
     }
 
@@ -97,23 +86,23 @@ CMD:bar(playerid, params[]) {
         DestroyProgressBar3D(Bar);
     }
 
-    new Float:x, Float:y, Float:z;
+    new Float:x,
+        Float:y,
+        Float:z;
     GetPlayerPos(playerid, x, y, z);
     Bar = CreateProgressBar3D(Colors[random(sizeof(Colors))], (borders == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
     
     if(autofill) {
         update = repeat Update();
     }
+
     return 1;
 }
 
 CMD:pbar(playerid, params[]) {
-    new autofill, borders;
-    if(sscanf(params, "ii", autofill, borders)) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
-    } else if(autofill != 0 && autofill != 1) {
-        return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
-    } else if(borders != 0 && borders != 1) {
+    new autofill,
+        borders;
+    if(sscanf(params, "ii", autofill, borders) || (autofill != 0 && autofill != 1) || (borders != 0 && borders != 1)) {
         return SendClientMessage(playerid, -1, "USAGE: /bar <0 or 1> (0: auto on, 1: auto off) <0 or 1> (0: no borders, 1: with borders)");
     }
 
@@ -122,13 +111,16 @@ CMD:pbar(playerid, params[]) {
         DestroyPlayerProgressBar3D(playerid, PlayerBar);
     }
 
-    new Float:x, Float:y, Float:z;
+    new Float:x,
+        Float:y,
+        Float:z;
     GetPlayerPos(playerid, x, y, z);
     PlayerBar = CreatePlayerProgressBar3D(playerid, Colors[random(sizeof(Colors))], (borders == 0) ? (false) : (true), x, y, z, 100.0, 50.0, 100.0);
 
     if(autofill) {
         pupdate = repeat pUpdate(playerid);
     }
+
     return 1;
 }
 
@@ -157,6 +149,7 @@ CMD:value(playerid, params[]) {
     if(sscanf(params, "f", value)) {
         return SendClientMessage(playerid, -1, "USAGE: /value <float>");
     }
+
     SetProgressBar3DValue(Bar, value);
     return 1;
 }
@@ -164,8 +157,9 @@ CMD:value(playerid, params[]) {
 CMD:pvalue(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /value <float>");
+        return SendClientMessage(playerid, -1, "USAGE: /pvalue <float>");
     }
+
     SetPlayerProgressBar3DValue(playerid, PlayerBar, value);
     return 1;
 }
@@ -175,6 +169,7 @@ CMD:max(playerid, params[]) {
     if(sscanf(params, "f", value)) {
         return SendClientMessage(playerid, -1, "USAGE: /max <float>");
     }
+
     SetProgressBar3DMaxValue(Bar, value);
     return 1;
 }
@@ -182,8 +177,9 @@ CMD:max(playerid, params[]) {
 CMD:pmax(playerid, params[]) {
     new Float:value;
     if(sscanf(params, "f", value)) {
-        return SendClientMessage(playerid, -1, "USAGE: /max <float>");
+        return SendClientMessage(playerid, -1, "USAGE: /pmax <float>");
     }
+
     SetPlayerProgressBar3DMaxValue(playerid, PlayerBar, value);
     return 1;
 }
