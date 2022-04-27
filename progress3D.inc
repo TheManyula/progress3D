@@ -65,6 +65,7 @@ static _UpdateProgress3D(barid, playerid, type, color, bool:borders, bool:shown,
         UpdateDynamic3DTextLabelText((type == BAR_3D_TYPE_GLOBAL) ? (GlobalBars3D[_:barid][BgBar1]) : (PlayerBars3D[playerid][_:barid][BgBar1]), (shown) ? (0x000000FF) : (0x00000000), "||||||||||||||||||||||||||");
         UpdateDynamic3DTextLabelText((type == BAR_3D_TYPE_GLOBAL) ? (GlobalBars3D[_:barid][BgBar2]) : (PlayerBars3D[playerid][_:barid][BgBar2]), (shown) ? (0x000000FF) : (0x00000000), " ||||||||||||||||||||||||||");
     }
+
     return 1;
 }
 
@@ -150,7 +151,6 @@ stock SetProgressBar3DValue(Bar3D:barid, Float:value) {
     if(!IsValidProgressBar3D(barid)) {
         return _:INVALID_GLOBAL_3D_BAR;
     }
-
     if(value > GlobalBars3D[_:barid][maxValue]) {
         return 0;
     }
@@ -188,7 +188,6 @@ stock SetProgressBar3DMaxValue(Bar3D:barid, Float:max_value) {
     if(!IsValidProgressBar3D(barid)) {
         return _:INVALID_GLOBAL_3D_BAR;
     }
-
     if(max_value < GlobalBars3D[_:barid][barValue]) {
         return 0;
     }
@@ -322,7 +321,6 @@ stock SetPlayerProgressBar3DMaxValue(playerid, PlayerBar3D:barid, Float:max_valu
     if(!IsValidPlayerProgressBar3D(playerid, barid)) {
         return _:INVALID_PLAYER_3D_BAR;
     }
-
     if(max_value < PlayerBars3D[playerid][_:barid][barValue]) {
         return 0;
     }
