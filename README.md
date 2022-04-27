@@ -1,8 +1,10 @@
 # progress3D.inc
 
-A SA-MP library for creating progress bars in 3D space. This library was written and is maintained by Manyula.
+A SA-MP library for creating 3D progress bars.
 
 ![progress3D](https://i.ibb.co/gVby8wg/progress3-D.png)
+
+> :warning: For the best results, please use `/fontsize 0` and set `fontweight=0` in your server.cfg.
 
 ## Installation
 
@@ -33,10 +35,12 @@ Include in your code and begin using the library:
 
 Although progress3D requires the use of the streamer and therefore allows you to stretch the current limits, you should keep in mind that the hard limit for 3D progress bars is much lower than the current 3D text label limit. Here is what you need to take into account when creating them:
 
-* 3D progress bars **without** border consist of two 3D text labels for the bar itself.
+* 3D progress bars **without** borders consist of two 3D text labels for the bar itself.
 * 3D progress bars **with** borders consist of two 3D text labels for the bar itself **AND** two additional 3D text labels for the background bar.
 
 ### Functions
+
+#### Global Bars
 
 ```pawn
 Bar3D:CreateProgressBar3D(color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
@@ -104,7 +108,7 @@ IsValidProgressBar3D(Bar3D:barid)
 
 Returns 1, if the specified 3D progress bar ID is valid and exists. Returns `INVALID_GLOBAL_3D_BAR` if bar doesn't exist.
 
-___
+#### Player Bars
 
 ```pawn
 PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float:x, Float:y, Float:z, Float:max_value, Float:init_value, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID, attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, worldid = -1, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, areaid = -1, priority = 0)
@@ -192,9 +196,11 @@ and connect to your localhost (`localhost:7777` or `127.0.0.1:7777`).
 
 ### Commands
 
-* `/bar <0 or 1> <0 or 1>` to create a 3D progress bar.
+* `/(p)bar <0 or 1> <0 or 1>` to create a 3D progress bar.
   1. Auto-Fill Mode (0: disable, 1: enable)
   2. Borders (0: disable, 1: enable)
-* `/value <float>` to change the value.
-* `/max <float>` to change the maximum value.
-* `/color` to change the color randomly.
+* `/(p)hide` to hide the 3D progress bar.
+* `/(p)show` to show the 3D progress bar.
+* `/(p)value <float>` to change the value.
+* `/(p)max <float>` to change the maximum value.
+* `/(p)color` to change the color randomly.
