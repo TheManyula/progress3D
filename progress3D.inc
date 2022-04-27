@@ -214,8 +214,8 @@ stock PlayerBar3D:CreatePlayerProgressBar3D(playerid, color, bool:borders, Float
     }
     
     if(borders && !IsValidDynamic3DTextLabel(PlayerBars3D[playerid][barid][BgBar1]) && !IsValidDynamic3DTextLabel(PlayerBars3D[playerid][barid][BgBar2])) {
-        PlayerBars3D[playerid][barid][BgBar1] = CreateDynamic3DTextLabel("||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0075, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
-        PlayerBars3D[playerid][barid][BgBar2] = CreateDynamic3DTextLabel(" ||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0075, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
+        PlayerBars3D[playerid][barid][BgBar1] = CreateDynamic3DTextLabel("||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0025, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
+        PlayerBars3D[playerid][barid][BgBar2] = CreateDynamic3DTextLabel(" ||||||||||||||||||||||||||", 0x000000FF, x, y, z+0.0025, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority+1);
     }
 
     PlayerBars3D[playerid][barid][Bar1] = CreateDynamic3DTextLabel("Loading...", SetAlpha(color), x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance, areaid, priority);
