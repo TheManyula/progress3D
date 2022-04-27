@@ -6,7 +6,7 @@
 	"dependencies": [
 		"sampctl/samp-stdlib",
 		"samp-incognito/samp-streamer-plugin:v2.9.4",
-		"pawn-lang/YSI-Includes@5.x",
+		"pawn-lang/YSI-Includes:5.x",
 		"maddinat0r/sscanf:v2.8.3",
 		"Southclaws/zcmd"
 	],
@@ -17,7 +17,7 @@
 		}
 	],
 	"runtime": {
-		"version": "0.3.7",
+		"version": "openmp",
 		"mode": "server",
 		"echo": "-",
 		"rcon_password": "password",
@@ -26,7 +26,7 @@
 		"maxplayers": 50,
 		"language": "",
 		"mapname": "San Andreas",
-		"weburl": "www.sa-mp.com",
+		"weburl": "open.mp",
 		"gamemodetext": "Unknown",
 		"announce": true,
 		"lanmode": false,
